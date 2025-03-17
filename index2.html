@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Birthday Wish</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-family: 'Nunito', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+            background-color: #000;
+        }
+
+        .glass-container {
+            background: rgb(0, 0, 0);
+            border-radius: 25px;
+            padding: 2.5rem;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .message {
+            font-size: 1.8rem;
+            font-weight: 600;
+            opacity: 5;
+            transition: opacity 0.5s ease;
+        }
+
+        #initialMessage, #secondMessage {
+            color: #007bff;
+            text-shadow: 0 0 10px #ffffff, 0 0 20px #00c3ff;
+        }
+
+        .hidden {
+            opacity: 0;
+            position: absolute;
+        }
+
+        .enter-button {
+            margin-top: 2rem;
+            background: linear-gradient(45deg, #007bff, #00c3ff);
+            color: white;
+            font-weight: 700;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            z-index: 10;
+            box-shadow: 0 0 10px #00c3ff, 0 0 40px #00c3ff;
+        }
+
+        .enter-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #00c3ff, 0 0 50px #00c3ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="glass-container" id="messageContainer">
+        <p class="message" id="initialMessage">I have something for you...</p>
+        <p class="message hidden" id="secondMessage">It's a special day for you...</p>
+    </div>
+
+    <button class="enter-button" id="enterButton">Enter My Day</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const messageContainer = document.getElementById('messageContainer');
+            const initialMessage = document.getElementById('initialMessage');
+            const secondMessage = document.getElementById('secondMessage');
+            const enterButton = document.getElementById('enterButton');
+
+            messageContainer.addEventListener('click', () => {
+                gsap.to(initialMessage, {
+                    opacity: 0,
+                    y: -20,
+                    duration: 0.5,
+                    onComplete: () => {
+                        initialMessage.classList.add('hidden');
+                        secondMessage.classList.remove('hidden');
+                        gsap.fromTo(secondMessage, {opacity: 0, y: 20}, {opacity: 1, y: 0, duration: 0.5});
+                        gsap.to(enterButton, {opacity: 1, y: 0, duration: 0.8, delay: 0.3});
+                    }
+                });
+            });
+
+            enterButton.addEventListener('click', () => {
+                window.location.href = "brotherbirthday main.html";
+            });
+        });
+    </script>
+</body>
+</html>
